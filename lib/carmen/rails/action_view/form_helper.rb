@@ -235,7 +235,10 @@ module ActionView
               options[:include_blank] ||= true unless options[:prompt]
             end
 
-            value = options[:selected] ? options[:selected] : value(object)
+            # In Rails 5.2, the value method no longer accepts an argument
+            # https://github.com/rails/rails/pull/29791
+            #value = options[:selected] ? options[:selected] : value(object)
+            value = options[:selected] ? options[:selected] : value()
             priority_regions = options[:priority] || []
             opts = add_options(region_options_for_select(parent_region.subregions, value,
                                                         :priority => priority_regions),
